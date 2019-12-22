@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package service;
+
+message LoginReq {
+    string Username = 1;
+    string Password = 2;
+}
+
+message Token {
+    string Value = 1;
+}
+
+message LogoutRsp {
+    string Msg = 1;
+}
+
+message TrackReq {
+    double Lng = 1;
+    double Lat = 2;
+}
+
+message TrackRsp {
+    uint32 Count = 1;
+}
+
+message EventsReq {
+    string Filter = 1;
+}
+
+message EventsRsp {
+    string Event = 1;
+}
+
+message Message {
+    string Text = 1;
+}
+
+service Tracker {
+    rpc Login (LoginReq) returns (Token);
+    rpc Logout (Token) returns (LogoutRsp);
+    rpc Track (stream TrackReq) returns (TrackRsp);
+    rpc Events (EventsReq) returns (stream EventsRsp);
+    rpc Chat (stream Message) returns (stream Message);
+}
